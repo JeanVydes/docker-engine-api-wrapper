@@ -4,6 +4,8 @@ A simple way to interact with the Docker Engine API
 
 ## Getting Start
 
+First you should to have Docker installed locally; then you should run library test with the commnad `cargo test`; if everything goes ok, congratulations you can start to code.
+
 ### Fetch Containers
 
 For fetch the containers
