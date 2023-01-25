@@ -8,7 +8,7 @@ First you should to have Docker installed locally; then you should run library t
 
 ### Fetch Containers
 
-For fetch the containers
+To fetch containers, provide you with methods to fetch multiple containers, the most primitive and unadapted part is the filters that should be provided as a string, anyways you can check the docs [filters](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList).
 
 What are those arguments in the function? [Check Docker Engine API documentation](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList)
 
