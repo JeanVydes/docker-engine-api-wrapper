@@ -10,7 +10,7 @@ For fetch the containers
 
 What are those arguments in the function? [Check Docker Engine API documentation](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList)
 
-```
+```rust
 fn get_containers(&mut self, all: bool, limit: i32, size: bool, filters: String) -> Result<Vec<Container>, Box<dyn std::error::Error + Send + Sync>>
 ```
 
@@ -31,11 +31,12 @@ For the following example you've already nginx:latest image in your system. For 
 In a simple way:
 
 ```rust
-let mut client = crate::client::Client::new("/var/run/docker.sock".to_string());
-let mut options = crate::apicontainer::CreateContainerBody::default();
+let mut client = Client::new("/var/run/docker.sock".to_string());
+let mut options = CreateContainerBody::default();
 options.image = "nginx:latest".to_string();
+options.cmd = vec!["nginx -g 'daemon off;'".to_string()];
 
-let response = match client.create_container("test", "linux", &options) {
+let response = match client.create_container("test2", "linux", &options) {
     Ok(response) => response,
     Err(e) => panic!("Error: {}", e)
 };
@@ -56,7 +57,7 @@ let options = crate::apicontainer::CreateContainerBody {
     open_stdin: true,
     stdin_once: false,
     env: vec![],
-    cmd: vec!["/bin/sh".to_string()],
+    cmd: vec!["nginx -g 'daemon off;'".to_string()],
     image: "nginx".to_string(),
     labels: HashMap::new(),
     volumes: HashMap::new(),
