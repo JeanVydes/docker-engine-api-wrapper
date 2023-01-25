@@ -10,18 +10,19 @@ First you should to have Docker installed locally; then you should run library t
 
 To fetch containers, provide you with methods to fetch multiple containers, the most primitive and unadapted part is the filters that should be provided as a string, anyways you can check the docs [filters](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList).
 
-What are those arguments in the function? [Check Docker Engine API documentation](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList)
-
 ```rust
 fn get_containers(&mut self, all: bool, limit: i32, size: bool, filters: String) -> Result<Vec<Container>, Box<dyn std::error::Error + Send + Sync>>
 ```
 
+What are those arguments in the function? [Check Docker Engine API documentation](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList)
+
+
 ```rust
 let mut client = crate::client::Client::new("/var/run/docker.sock".to_string());
-    let containers =  match client.get_containers(true, 0, false, "".to_string()) {
-        Ok(containers) => containers,
-        Err(e) => panic!("Error: {}", e)
-    };
+let containers =  match client.get_containers(true, 0, false, "".to_string()) {
+    Ok(containers) => containers,
+    Err(e) => panic!("Error: {}", e)
+};
 ```
 
 ### Create New Container
