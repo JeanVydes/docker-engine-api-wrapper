@@ -7,7 +7,7 @@ use crate::container_procceses::ContainerProcessesResponse;
 use crate::container_stats::Stats;
 use serde::Deserialize;
 
-pub type NoImplementedYet = Bytes;
+//pub type NoImplementedYet = Bytes;
 pub type EmptyOk = ();
 
 pub const LIST_CONTAINERS: &str = "/containers/json";

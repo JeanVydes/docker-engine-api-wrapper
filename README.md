@@ -53,7 +53,7 @@ match client.get_containers(false, 0, false, "".to_string()) {
 
 ### Create New Container
 
-For the following example you've already nginx:latest image in your system. For know open a cmd and type `docker image ls`, otherwise you can edit the image and use what you want...
+For the following example you've already `alpine:latest` image in your system. For know open a cmd and type `docker image ls`, otherwise you can edit the image and use what you want...
 
 [More Information](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerCreate)
 

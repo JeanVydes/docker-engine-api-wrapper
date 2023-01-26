@@ -1,7 +1,6 @@
 use hyper::{Client as HyperClient, Method};
 use hyperlocal::{UnixClientExt, UnixConnector};
 use crate::{api::{
-    NoImplementedYet,
     EmptyOk,
 
     LIST_CONTAINERS,
