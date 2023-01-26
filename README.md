@@ -35,7 +35,7 @@ What are those arguments in the function? [Check Docker Engine API documentation
 
 
 ```rust
-match client.get_containers(true, 0, false, "".to_string()) {
+match client.get_containers(false, 0, false, "".to_string()) {
     Ok(containers) => containers,
     Err(e) => panic!("Error: {}", e)
 };

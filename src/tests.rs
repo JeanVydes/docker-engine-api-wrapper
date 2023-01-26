@@ -12,7 +12,7 @@ fn test() {
 #[test]
 fn get_containers() {
     let mut client = Client::new("/var/run/docker.sock".to_string());
-    match client.list_containers(true, 0, false, "".to_string()) {
+    match client.list_containers(false, 0, false, "".to_string()) {
         Ok(_) => {},
         Err(e) => panic!("Error: {}", e)
     };
