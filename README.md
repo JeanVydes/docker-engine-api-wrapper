@@ -123,23 +123,23 @@ match client.get_stats_container(container_id, true, false) {
 ### Another Methods
 
 ```rust
-fn inspect_container(&mut self, id: &str) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+fn inspect_container(&mut self, id: &str) -> Result<InspectedContainer, Box<dyn std::error::Error + Send + Sync>>
 ```
 
 ```rust
-fn start_container(&mut self, id: &str) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+fn start_container(&mut self, id: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
 ```
 
 ```rust
-fn stop_container(&mut self, id: &str, timeout: i32) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+fn stop_container(&mut self, id: &str, timeout: i32) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
 ```
 
 ```rust
-fn restart_container(&mut self, id: &str) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+fn restart_container(&mut self, id: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
 ```
 
 ```rust
-fn remove_container(&mut self, id: &str, remove_associated_volumes: bool, force: bool, remove_specified_linked: bool) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+fn remove_container(&mut self, id: &str, remove_associated_volumes: bool, force: bool, remove_specified_linked: bool) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
 ```
 
 ```rust
