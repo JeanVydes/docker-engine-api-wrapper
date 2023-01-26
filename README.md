@@ -11,7 +11,15 @@ First you should to have Docker installed locally; then you should run library t
 A Client is the main way to connect to Docker Engine API, usually the socket is located in `/var/run/docker.sock`.
 
 ```rust
-let mut client = Client::new("/var/run/docker.sock".to_string());
+extern crate docker_engine_api;
+fn main() {
+    let mut client = docker_engine_api::new("/var/run/docker.sock".to_string());
+    match client.list_containers(true, 0, false, "".to_string()) {
+        Ok(_) => {},
+        Err(e) => panic!("Error: {}", e)
+    };
+}
+
 ```
 
 ### Fetch Containers

@@ -87,7 +87,7 @@ impl ClientTrait for Client {
 
     fn ping(&self) -> Result<(), Box<dyn std::error::Error>> {
         self.runtime.block_on(async {
-            let uri = Uri::new(self.url.clone(), "/ping");
+            let uri = Uri::new(self.url.clone(), "/containers/json");
             let req = Request::builder()
                 .method(Method::GET)
                 .uri(uri)
@@ -104,7 +104,7 @@ impl ClientTrait for Client {
             return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "No response")).into());
         })
     }
-    
+
     /// Gets a list of containers.
     ///
     /// # Arguments
