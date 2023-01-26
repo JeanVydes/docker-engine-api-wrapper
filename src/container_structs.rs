@@ -1,6 +1,5 @@
 use serde::{Serialize, Deserialize};
-use std::collections::HashMap;
-
+use std::{collections::HashMap};
 use crate::container_network::{HostConfig, NetworkSettings};
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
@@ -35,7 +34,7 @@ pub struct Mount {
     pub propagation: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Container {
     #[serde(rename(deserialize = "Id"), default)]
     pub id: String,
@@ -91,6 +90,28 @@ impl Default for Container {
                 networks: HashMap::new(),
             },
             mounts: Vec::new(),
+        }
+    }
+}
+
+impl Clone for Container {
+    fn clone(&self) -> Self {
+        Container {
+            id: self.id.clone(),
+            names: self.names.clone(),
+            image: self.image.clone(),
+            image_id: self.image_id.clone(),
+            command: self.command.clone(),
+            created: self.created,
+            state: self.state.clone(),
+            status: self.status.clone(),
+            ports: self.ports.clone(),
+            labels: self.labels.clone(),
+            size_rw: self.size_rw.clone(),
+            size_root_fs: self.size_root_fs.clone(),
+            host_config: self.host_config.clone(),
+            network_settings: self.network_settings.clone(),
+            mounts: self.mounts.clone(),
         }
     }
 }

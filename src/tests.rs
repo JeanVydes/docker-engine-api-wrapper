@@ -139,3 +139,20 @@ fn get_stats() {
         Err(e) => panic!("Error: {}", e)
     };
 }
+
+#[test]
+fn inspect_container() {
+    let mut client = Client::new("/var/run/docker.sock".to_string());
+    // get first a container id
+    let containers = match client.list_containers(true, 0, false, "".to_string()) {
+        Ok(containers) => containers,
+        Err(e) => panic!("Error: {}", e)
+    };
+
+    let id = containers[0].id.clone();
+
+    match client.inspect_container(&id.to_string(), true) {
+        Ok(container) => container,
+        Err(e) => panic!("Error: {}", e)
+    };
+}

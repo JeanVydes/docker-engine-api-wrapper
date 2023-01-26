@@ -1,11 +1,14 @@
 use hyper::Method;
 use hyper::body::Bytes;
+use crate::container_inspect::InspectedContainer;
 use crate::container_structs::Container;
 use crate::container_create::CreateContainerResponse;
 use crate::container_procceses::ContainerProcessesResponse;
 use crate::container_stats::Stats;
+use serde::Deserialize;
 
 pub type NoImplementedYet = Bytes;
+pub type EmptyOk = ();
 
 pub const LIST_CONTAINERS: &str = "/containers/json";
 pub const LIST_CONTAINERS_METHOD: Method = Method::GET;
@@ -18,6 +21,7 @@ pub type CREATE_CONTAINER_RETURN = CreateContainerResponse;
 pub const INSPECT_CONTAINER_START: &str = "/containers/";
 pub const INSPECT_CONTAINER_END: &str = "/json";
 pub const INSPECT_CONTAINER_METHOD: Method = Method::GET;
+pub type INSPECT_CONTAINER_RETURN = InspectedContainer;
 
 pub const LIST_PROCESSES_START: &str = "/containers/";
 pub const LIST_PROCESSES_END: &str = "/top";
@@ -57,12 +61,32 @@ pub const KILL_CONTAINER_METHOD: Method = Method::POST;
 
 //pub const UPDATE_CONTAINER: &str = "/containers/{id}/update";
 //pub const RENAME_CONTAINER: &str = "/containers/{id}/rename";
-//pub const PAUSE_CONTAINER: &str = "/containers/{id}/pause";
-//pub const UNPAUSE_CONTAINER: &str = "/containers/{id}/unpause";
+
+pub const PAUSE_CONTAINER_START: &str = "/containers/";
+pub const PAUSE_CONTAINER_END: &str = "/pause";
+pub const PAUSE_CONTAINER_METHOD: Method = Method::POST;
+
+pub const UNPAUSE_CONTAINER_START: &str = "/containers/";
+pub const UNPAUSE_CONTAINER_END: &str = "/unpause";
+pub const UNPAUSE_CONTAINER_METHOD: Method = Method::POST;
+
 //pub const ATTACH_CONTAINER: &str = "/containers/{id}/attach";
-//pub const WAIT_CONTAINER: &str = "/containers/{id}/wait";
+
+pub const WAIT_CONTAINER_START: &str = "/containers/";
+pub const WAIT_CONTAINER_END: &str = "/wait";
+pub const WAIT_CONTAINER_METHOD: Method = Method::POST;
 
 pub const REMOVE_CONTAINER: &str = "/containers/";
 pub const REMOVE_CONTAINER_METHOD: Method = Method::DELETE;
+
+pub const RESIZE_CONTAINER_TTY_START: &str = "/containers/";
+pub const RESIZE_CONTAINER_TTY_END: &str = "/resize";
+pub const RESIZE_CONTAINER_TTY_METHOD: Method = Method::POST;
+
+#[derive(Deserialize, Debug, Clone, Default)]
+pub struct ErrorMessage {
+    #[serde(rename(deserialize = "message"), default)]
+    pub message: String
+}
 
 // Path: docker-engine-api/src/api.rs
