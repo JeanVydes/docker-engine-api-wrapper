@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
-use crate::containerstructs::{HostConfig, NetworkingConfig};
+use crate::container_network::{HostConfig, NetworkingConfig};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CreateContainerBody<T> {

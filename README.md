@@ -4,7 +4,15 @@ A simple way to interact with the Docker Engine API
 
 ## Getting Start
 
-First you should to have Docker installed locally; then you should run library test with the commnad `cargo test`; if everything goes ok, congratulations you can start to code.
+First you should to have Docker installed locally; then you should run library test with the commnad `cargo test` (the tests uses the alpine image: `docker pull alpine`); if everything goes ok, congratulations you can start to code.
+
+### Create a Client
+
+A Client is the main way to connect to Docker Engine API, usually the socket is located in `/var/run/docker.sock`.
+
+```rust
+let mut client = Client::new("/var/run/docker.sock".to_string());
+```
 
 ### Fetch Containers
 
@@ -18,8 +26,7 @@ What are those arguments in the function? [Check Docker Engine API documentation
 
 
 ```rust
-let mut client = crate::client::Client::new("/var/run/docker.sock".to_string());
-let containers =  match client.get_containers(true, 0, false, "".to_string()) {
+match client.get_containers(true, 0, false, "".to_string()) {
     Ok(containers) => containers,
     Err(e) => panic!("Error: {}", e)
 };
@@ -34,22 +41,16 @@ For the following example you've already nginx:latest image in your system. For 
 In a simple way:
 
 ```rust
-let mut client = Client::new("/var/run/docker.sock".to_string());
-let mut options = CreateContainerBody::default();
-options.image = "nginx:latest".to_string();
-options.cmd = vec!["nginx -g 'daemon off;'".to_string()];
-
-let response = match client.create_container("test2", "linux", &options) {
-    Ok(response) => response,
-    Err(e) => panic!("Error: {}", e)
+match client.list_containers(true, 0, false, "".to_string()) {
+    Ok(_) => {},
+    err(e) => panic!("Error: {}", e)
 };
 ```
 
 Max customization options:
 
 ```rust
-let mut client = crate::client::Client::new("/var/run/docker.sock".to_string());
-let options = crate::apicontainer::CreateContainerBody {
+let options = CreateContainerBody {
     hostname: "localhost".to_string(),
     domainname: "localhost".to_string(),
     user: "".to_string(),
@@ -60,8 +61,8 @@ let options = crate::apicontainer::CreateContainerBody {
     open_stdin: true,
     stdin_once: false,
     env: vec![],
-    cmd: vec!["nginx -g 'daemon off;'".to_string()],
-    image: "nginx".to_string(),
+    cmd: vec!["echo test'".to_string()],
+    image: "alpine:latest".to_string(),
     labels: HashMap::new(),
     volumes: HashMap::new(),
     working_dir: "".to_string(),
@@ -79,6 +80,47 @@ let response = match client.create_container("test", "linux", &options) {
     Ok(response) => response,
     Err(e) => panic!("Error: {}", e)
 };
+```
+
+### Get Stats
+
+```rust
+match client.get_stats_container(&response.id, true, false) {
+    Ok(stats) => {
+        println!("Container CPU Usage (this mean that the container is running): {:?}", stats.cpu_stats.cpu_usage.total_usage);
+    },
+    Err(e) => panic!("Error: {}", e)
+};
+```
+
+### Another Methods
+
+```rust
+fn inspect_container(&mut self, id: &str) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn start_container(&mut self, id: &str) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn stop_container(&mut self, id: &str, timeout: i32) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn restart_container(&mut self, id: &str) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn remove_container(&mut self, id: &str, remove_associated_volumes: bool, force: bool, remove_specified_linked: bool) -> Result<NoImplementedYet, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn get_container_logs(&mut self, id: &str) -> Result<GET_CONTAINER_LOGS_RETURN, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn list_processes(&mut self, id: &str) -> Result<LIST_PROCESSES_RETURN, Box<dyn std::error::Error + Send + Sync>>
 ```
 
 # Contributors

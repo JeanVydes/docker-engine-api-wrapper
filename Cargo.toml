@@ -1,12 +1,14 @@
 [package]
-name = "docker_engine_api_wrapper"
+name = "deaw"
+description = "A simple way to interact with the Docker Engine API"
 version = "0.1.0"
 edition = "2021"
 authors = ["Jean Vides <jeanservices.co@gmail.com>"]
 repository = "https://github.com/JeanVydes/docker-engine-api-wrapper"
+categories = ["devops", "docker", "containers"]
 keywords = ["docker", "engine", "api", "wrapper", "hyper", "hyperlocal", "tokio"]
 readme = "README.md"
-documentation = "https://docs.rs/docker_engine_api_wrapper"
+documentation = "https://github.com/JeanVydes/docker-engine-api-wrapper"
 license = "MIT"
 
 [dependencies]
