@@ -12,14 +12,15 @@ A Client is the main way to connect to Docker Engine API, usually the socket is 
 
 ```rust
 extern crate docker_engine_api;
+use crate::docker_engine_api::client::ClientTrait;
+
 fn main() {
     let mut client = docker_engine_api::new("/var/run/docker.sock".to_string());
-    match client.list_containers(true, 0, false, "".to_string()) {
-        Ok(_) => {},
+    match client.ping() {
+        Ok(_) => {println!("Pong!")},
         Err(e) => panic!("Error: {}", e)
     };
 }
-
 ```
 
 ### Fetch Containers
@@ -49,6 +50,8 @@ For the following example you've already nginx:latest image in your system. For 
 In a simple way:
 
 ```rust
+use docker_engine_api::container_create::CreateContainerBody;
+
 let mut options = CreateContainerBody::default();
 options.image = "alpine:latest".to_string();
 options.cmd = vec!["/bin/true".to_string()];
@@ -62,6 +65,8 @@ let response = match client.create_container("test2", "linux", &options) {
 Max customization options:
 
 ```rust
+use docker_engine_api::container_create::CreateContainerBody;
+
 let options = CreateContainerBody {
     hostname: "localhost".to_string(),
     domainname: "localhost".to_string(),
@@ -97,9 +102,9 @@ let response = match client.create_container("test", "linux", &options) {
 ### Get Stats
 
 ```rust
-match client.get_stats_container(&response.id, true, false) {
+match client.get_stats_container(container_id, true, false) {
     Ok(stats) => {
-        println!("Container CPU Usage (this mean that the container is running): {:?}", stats.cpu_stats.cpu_usage.total_usage);
+        println!("{:?}", stats);
     },
     Err(e) => panic!("Error: {}", e)
 };
