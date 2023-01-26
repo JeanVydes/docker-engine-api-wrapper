@@ -6,7 +6,6 @@ pub mod container_create;
 pub mod container_procceses;
 pub mod container_stats;
 pub mod container_structs;
-pub mod container_service;
 
 #[cfg(test)]
 mod tests;

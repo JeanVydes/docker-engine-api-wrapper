@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use crate::client::{ClientTrait as _, Client};
 use crate::container_create::{CreateContainerBody};
 #[allow(unused_imports)]
-use crate::{container_service::ContainerService as _, container_network::{HostConfig, NetworkingConfig}};
+use crate::{container_network::{HostConfig, NetworkingConfig}};
 
 #[test]
 fn test() {
