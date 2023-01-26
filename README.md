@@ -140,6 +140,22 @@ fn get_container_logs(&mut self, id: &str) -> Result<GET_CONTAINER_LOGS_RETURN, 
 fn list_processes(&mut self, id: &str) -> Result<LIST_PROCESSES_RETURN, Box<dyn std::error::Error + Send + Sync>>
 ```
 
+```rust
+fn resize_container_tty(&mut self, id: &str, height: i32, width: i32) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn pause_container(&mut self, id: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn unpause_container(&mut self, id: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn wait_container(&mut self, id: &str, condition: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
+```
+
 # Contributors
 
 Would be a pleasure to get you here...
