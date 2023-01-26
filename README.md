@@ -4,6 +4,16 @@ A simple way to interact with the Docker Engine API
 
 ## Getting Start
 
+Install
+
+`cargo add docker_engine_api`
+
+or add manually into your Cargo.toml
+
+`docker_engine_api = "0.1.4"`
+
+and then run `cargo build`
+
 First you should to have Docker installed locally; then you should run library test with the commnad `cargo test` (the tests uses the alpine image: `docker pull alpine`); if everything goes ok, congratulations you can start to code.
 
 ### Create a Client
