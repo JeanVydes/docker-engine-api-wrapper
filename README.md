@@ -41,9 +41,13 @@ For the following example you've already nginx:latest image in your system. For 
 In a simple way:
 
 ```rust
-match client.list_containers(true, 0, false, "".to_string()) {
-    Ok(_) => {},
-    err(e) => panic!("Error: {}", e)
+let mut options = CreateContainerBody::default();
+options.image = "alpine:latest".to_string();
+options.cmd = vec!["/bin/true".to_string()];
+
+let response = match client.create_container("test2", "linux", &options) {
+    Ok(response) => response,
+    Err(e) => panic!("Error: {}", e)
 };
 ```
 
