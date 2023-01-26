@@ -1,4 +1,4 @@
-# Docker Engine API
+# Docker Engine API Wrapper
 
 A simple way to interact with the Docker Engine API
 
