@@ -1,7 +1,7 @@
 [package]
 name = "docker_engine_api"
 description = "A simple way to interact with the Docker Engine API"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["Jean Vides <jean@comediante.org>"]
 repository = "https://github.com/JeanVydes/docker-engine-api-wrapper"

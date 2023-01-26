@@ -1,12 +1,17 @@
-mod api;
-mod container_network;
-mod container_create;
-mod container_procceses;
-mod container_stats;
-mod container_structs;
-mod container_service;
-mod network;
-mod client;
+pub mod api;
+pub mod container_network;
+pub mod container_create;
+pub mod container_procceses;
+pub mod container_stats;
+pub mod container_structs;
+pub mod container_service;
+pub mod network;
+pub mod client;
 
 #[cfg(test)]
 mod tests;
+
+use crate::client::ClientTrait;
+pub fn new(url: String) -> client::Client {
+    return client::Client::new(url);
+}
