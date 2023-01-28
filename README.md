@@ -10,7 +10,7 @@ Install
 
 or add manually into your Cargo.toml
 
-`docker_engine_api = "0.1.4"`
+`docker_engine_api = "0.1.5"`
 
 and then run `cargo build`
 
