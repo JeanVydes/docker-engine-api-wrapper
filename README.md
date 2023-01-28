@@ -33,6 +33,14 @@ fn main() {
 }
 ```
 
+### Note
+
+In order to use `client.containers` methods you need import `ContainersService` as:
+
+```rust
+use docker_engine_api::containers_service::ContainersServiceTrait;
+```
+
 ### Fetch Containers
 
 To fetch containers, provide you with methods to fetch multiple containers, the most primitive and unadapted part is the filters that should be provided as a string, anyways you can check the docs [filters](https://docs.docker.com/engine/api/v1.41/#tag/Container/operation/ContainerList).
@@ -45,7 +53,7 @@ What are those arguments in the function? [Check Docker Engine API documentation
 
 
 ```rust
-match client.get_containers(false, 0, false, "".to_string()) {
+match client.containers.get_containers(false, 0, false, "".to_string()) {
     Ok(containers) => containers,
     Err(e) => panic!("Error: {}", e)
 };
@@ -66,7 +74,7 @@ let mut options = CreateContainerBody::default();
 options.image = "alpine:latest".to_string();
 options.cmd = vec!["/bin/true".to_string()];
 
-let response = match client.create_container("test2", "linux", &options) {
+let response = match client.containers.create_container("test2", "linux", &options) {
     Ok(response) => response,
     Err(e) => panic!("Error: {}", e)
 };
@@ -103,7 +111,7 @@ let options = CreateContainerBody {
     exposed_ports: HashMap::new(),
 };
 
-let response = match client.create_container("test", "linux", &options) {
+let response = match client.containers.reate_container("test", "linux", &options) {
     Ok(response) => response,
     Err(e) => panic!("Error: {}", e)
 };
@@ -112,7 +120,7 @@ let response = match client.create_container("test", "linux", &options) {
 ### Get Stats
 
 ```rust
-match client.get_stats_container(container_id, true, false) {
+match client.containers.get_stats_container(container_id, true, false) {
     Ok(stats) => {
         println!("{:?}", stats);
     },
@@ -120,7 +128,7 @@ match client.get_stats_container(container_id, true, false) {
 };
 ```
 
-### Another Methods
+### Others Methods for Containers Services
 
 ```rust
 fn inspect_container(&mut self, id: &str) -> Result<InspectedContainer, Box<dyn std::error::Error + Send + Sync>>
@@ -164,6 +172,18 @@ fn unpause_container(&mut self, id: &str) -> Result<EmptyOk, Box<dyn std::error:
 
 ```rust
 fn wait_container(&mut self, id: &str, condition: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>
+```
+
+```rust
+fn update_container(&mut self, id: &str, more: &UpdateContainerWith) -> Result<WarningsResponse, Box<dyn std::error::Error + Send + Sync>>;
+```
+
+```rust
+fn rename_container(&mut self, id: &str, new_name: &str) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>;
+```
+
+```rust
+fn delete_stopped_containers(self) -> Result<EmptyOk, Box<dyn std::error::Error + Send + Sync>>;
 ```
 
 # Contributors
