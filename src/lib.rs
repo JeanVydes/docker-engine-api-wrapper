@@ -6,6 +6,8 @@ pub mod container_create;
 pub mod container_procceses;
 pub mod container_stats;
 pub mod container_inspect;
+pub mod container_update;
+pub mod containers_service;
 pub mod container_structs;
 pub mod request;
 pub mod error;

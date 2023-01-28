@@ -2,7 +2,6 @@ use hyper::body::Bytes;
 use hyper::{Client as HyperClient, Method, Request, Body, body::HttpBody};
 use hyperlocal::{UnixConnector, Uri};
 use tokio::runtime::Runtime;
-use tokio::io::{self, AsyncWriteExt as _};
 
 pub struct SimpleResponse {
     pub status: u16,
@@ -30,12 +29,9 @@ pub fn request(client: &HyperClient<UnixConnector>, socket: String, url: String,
             .body(body)?
             .into();
 
-        println!("{:?}", client);
-        let mut response = client.request(req).await?;
-
+        let mut response = client.request(req).await?; 
         while let Some(next) = response.data().await {
             let chunk = next?;
-            io::stdout().write_all(&chunk).await?;
 
             let simple = SimpleResponse {
                 status: response.status().as_u16(),
@@ -45,6 +41,9 @@ pub fn request(client: &HyperClient<UnixConnector>, socket: String, url: String,
             return Ok(simple);
         }
 
-        Ok(SimpleResponse::default())
+        Ok(SimpleResponse {
+            status: response.status().as_u16().into(),
+            body: Bytes::new(),
+        })
     })
 }

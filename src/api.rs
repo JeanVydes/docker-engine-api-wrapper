@@ -1,8 +1,7 @@
 use hyper::Method;
-use hyper::body::Bytes;
 use crate::container_inspect::InspectedContainer;
 use crate::container_structs::Container;
-use crate::container_create::CreateContainerResponse;
+use crate::container_create::CreateContainerResponseFromAPI;
 use crate::container_procceses::ContainerProcessesResponse;
 use crate::container_stats::Stats;
 use serde::Deserialize;
@@ -12,26 +11,26 @@ pub type EmptyOk = ();
 
 pub const LIST_CONTAINERS: &str = "/containers/json";
 pub const LIST_CONTAINERS_METHOD: Method = Method::GET;
-pub type LIST_CONTAINERS_RETURN = Vec<Container>;
+pub type ListContainersReturn = Vec<Container>;
 
 pub const CREATE_CONTAINER: &str = "/containers/create";
 pub const CREATE_CONTAINER_METHOD: Method = Method::POST;
-pub type CREATE_CONTAINER_RETURN = CreateContainerResponse;
+pub type CreateContainerReturn = CreateContainerResponseFromAPI;
 
 pub const INSPECT_CONTAINER_START: &str = "/containers/";
 pub const INSPECT_CONTAINER_END: &str = "/json";
 pub const INSPECT_CONTAINER_METHOD: Method = Method::GET;
-pub type INSPECT_CONTAINER_RETURN = InspectedContainer;
+pub type InspectContainerReturn = InspectedContainer;
 
 pub const LIST_PROCESSES_START: &str = "/containers/";
 pub const LIST_PROCESSES_END: &str = "/top";
 pub const LIST_PROCESSES_METHOD: Method = Method::GET;
-pub type LIST_PROCESSES_RETURN = ContainerProcessesResponse;
+pub type ListProcessesReturn = ContainerProcessesResponse;
 
 pub const GET_CONTAINER_LOGS_START: &str = "/containers/";
 pub const GET_CONTAINER_LOGS_END: &str = "/logs";
 pub const GET_CONTAINER_LOGS_METHOD: Method = Method::GET;
-pub type GET_CONTAINER_LOGS_RETURN = String;
+pub type GetContainerLogsReturn = String;
 
 //pub const GET_CHANGES_CONTAINER: &str = "/containers/{id}/changes";
 //pub const EXPORT_CONTAINER: &str = "/containers/{id}/export";
@@ -39,7 +38,7 @@ pub type GET_CONTAINER_LOGS_RETURN = String;
 pub const GET_STATS_CONTAINER_START: &str = "/containers/";
 pub const GET_STATS_CONTAINER_END: &str = "/stats";
 pub const GET_STATS_CONTAINER_METHOD: Method = Method::GET;
-pub type GET_STATS_CONTAINER_RETURN = Stats;
+pub type GetContainerStatsReturn = Stats;
 //
 pub const RESIZE_CONTAINER: &str = "/containers/{id}/resize";
 
@@ -59,8 +58,13 @@ pub const KILL_CONTAINER_START: &str = "/containers/";
 pub const KILL_CONTAINER_END: &str = "/kill";
 pub const KILL_CONTAINER_METHOD: Method = Method::POST;
 
-//pub const UPDATE_CONTAINER: &str = "/containers/{id}/update";
-//pub const RENAME_CONTAINER: &str = "/containers/{id}/rename";
+pub const UPDATE_CONTAINER_START: &str = "/containers/";
+pub const UPDATE_CONTAINER_END: &str = "/update";
+pub const UPDATE_CONTAINER_METHOD: Method = Method::POST;
+
+pub const RENAME_CONTAINER_START: &str = "/containers/";
+pub const RENAME_CONTAINER_END: &str = "/rename";
+pub const RENAME_CONTAINER_METHOD: Method = Method::POST;
 
 pub const PAUSE_CONTAINER_START: &str = "/containers/";
 pub const PAUSE_CONTAINER_END: &str = "/pause";
@@ -69,8 +73,6 @@ pub const PAUSE_CONTAINER_METHOD: Method = Method::POST;
 pub const UNPAUSE_CONTAINER_START: &str = "/containers/";
 pub const UNPAUSE_CONTAINER_END: &str = "/unpause";
 pub const UNPAUSE_CONTAINER_METHOD: Method = Method::POST;
-
-//pub const ATTACH_CONTAINER: &str = "/containers/{id}/attach";
 
 pub const WAIT_CONTAINER_START: &str = "/containers/";
 pub const WAIT_CONTAINER_END: &str = "/wait";
@@ -82,6 +84,9 @@ pub const REMOVE_CONTAINER_METHOD: Method = Method::DELETE;
 pub const RESIZE_CONTAINER_TTY_START: &str = "/containers/";
 pub const RESIZE_CONTAINER_TTY_END: &str = "/resize";
 pub const RESIZE_CONTAINER_TTY_METHOD: Method = Method::POST;
+
+pub const DELETE_STOPPED_CONTAINERS: &str = "/containers/prune";
+pub const DELETE_STOPPED_CONTAINERS_METHOD: Method = Method::POST;
 
 #[derive(Deserialize, Debug, Clone, Default)]
 pub struct ErrorMessage {

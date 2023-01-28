@@ -3,41 +3,41 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct HostConfig {
-    #[serde(rename(deserialize = "NetworkMode"), default)]
+    #[serde(rename = "NetworkMode", default)]
     pub network_mode: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct NetworkSettingsNet {
-    #[serde(rename(deserialize = "NetworkID"), default)]
+    #[serde(rename = "NetworkID", default)]
     pub network_id: String,
-    #[serde(rename(deserialize = "EndpointID"), default)]
+    #[serde(rename = "EndpointID", default)]
     pub endpoint_id: String,
-    #[serde(rename(deserialize = "Gateway"), default)]
+    #[serde(rename = "Gateway", default)]
     pub gateway: String,
-    #[serde(rename(deserialize = "IPAddress"), default)]
+    #[serde(rename = "IPAddress", default)]
     pub ip_address: String,
-    #[serde(rename(deserialize = "IPPrefixLen"), default)]
+    #[serde(rename = "IPPrefixLen", default)]
     pub ip_prefix_len: u8,
-    #[serde(rename(deserialize = "IPv6Gateway"), default)]
+    #[serde(rename = "IPv6Gateway", default)]
     pub ipv6_gateway: String,
-    #[serde(rename(deserialize = "GlobalIPv6Address"), default)]
+    #[serde(rename = "GlobalIPv6Address", default)]
     pub global_ipv6_address: String,
-    #[serde(rename(deserialize = "GlobalIPv6PrefixLen"), default)]
+    #[serde(rename = "GlobalIPv6PrefixLen", default)]
     pub global_ipv6_prefix_len: u8,
-    #[serde(rename(deserialize = "MacAddress"), default)]
+    #[serde(rename = "MacAddress", default)]
     pub mac_address: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct NetworkSettings {
-    #[serde(rename(deserialize = "Networks"), default)]
+    #[serde(rename = "Networks", default)]
     pub networks: HashMap<String, NetworkSettingsNet>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct NetworkingConfig {
-    #[serde(rename(deserialize = "EndpointsConfig"))]
+    #[serde(rename = "EndpointsConfig")]
     pub endpoints_config: EndpointsConfig,
 }
 
@@ -61,26 +61,26 @@ impl Default for NetworkingConfig {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct EndpointsConfig {
-    #[serde(rename(deserialize = "isolated_nw"))]
+    #[serde(rename = "isolated_nw")]
     pub isolated_nw: IsolatedNw,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct IsolatedNw {
-    #[serde(rename(deserialize = "IPAMConfig"))]
+    #[serde(rename = "IPAMConfig")]
     pub ipam_config: IPAMConfig,
-    #[serde(rename(deserialize = "Links"), default)]
+    #[serde(rename = "Links", default)]
     pub links: Vec<String>,
-    #[serde(rename(deserialize = "Aliases"), default)]
+    #[serde(rename = "Aliases", default)]
     pub aliases: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct IPAMConfig {
-    #[serde(rename(deserialize = "IPv4Address"), default)]
+    #[serde(rename = "IPv4Address", default)]
     pub ipv4_address: String,
-    #[serde(rename(deserialize = "IPv6Address"), default)]
+    #[serde(rename = "IPv6Address", default)]
     pub ipv6_address: String,
-    #[serde(rename(deserialize = "LinkLocalIPs"), default)]
+    #[serde(rename = "LinkLocalIPs", default)]
     pub link_local_ips: Vec<String>,
 }

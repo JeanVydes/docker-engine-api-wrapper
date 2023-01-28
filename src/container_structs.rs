@@ -4,67 +4,67 @@ use crate::container_network::{HostConfig, NetworkSettings};
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct Port {
-    #[serde(rename(deserialize = "IP"), default)]
+    #[serde(rename = "IP", default)]
     pub ip: String,
-    #[serde(rename(deserialize = "PrivatePort"), default)]
+    #[serde(rename = "PrivatePort", default)]
     pub private_port: u16,
-    #[serde(rename(deserialize = "PublicPort"), default)]
+    #[serde(rename = "PublicPort", default)]
     pub public_port: u16,
-    #[serde(rename(deserialize = "Type"), default)]
+    #[serde(rename = "Type", default)]
     pub _type: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct Mount {
-    #[serde(rename(deserialize = "Type"), default)]
+    #[serde(rename = "Type", default)]
     pub _type: String,
-    #[serde(rename(deserialize = "Name"), default)]
+    #[serde(rename = "Name", default)]
     pub name: String,
-    #[serde(rename(deserialize = "Source"), default)]
+    #[serde(rename = "Source", default)]
     pub source: String,
-    #[serde(rename(deserialize = "Destination"), default)]
+    #[serde(rename = "Destination", default)]
     pub destination: String,
-    #[serde(rename(deserialize = "Driver"), default)]
+    #[serde(rename = "Driver", default)]
     pub driver: String,
-    #[serde(rename(deserialize = "Mode"), default)]
+    #[serde(rename = "Mode", default)]
     pub mode: String,
-    #[serde(rename(deserialize = "RW"), default)]
+    #[serde(rename = "RW", default)]
     pub rw: bool,
-    #[serde(rename(deserialize = "Propagation"), default)]
+    #[serde(rename = "Propagation", default)]
     pub propagation: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Container {
-    #[serde(rename(deserialize = "Id"), default)]
+    #[serde(rename = "Id", default)]
     pub id: String,
-    #[serde(rename(deserialize = "Names"), default)]
+    #[serde(rename = "Names", default)]
     pub names: Vec<String>,
-    #[serde(rename(deserialize = "Image"), default)]
+    #[serde(rename = "Image", default)]
     pub image: String,
-    #[serde(rename(deserialize = "ImageID"), default)]
+    #[serde(rename = "ImageID", default)]
     pub image_id: String,
-    #[serde(rename(deserialize = "Command"), default)]
+    #[serde(rename = "Command", default)]
     pub command: String,
-    #[serde(rename(deserialize = "Created"), default)]
+    #[serde(rename = "Created", default)]
     pub created: u64,
-    #[serde(rename(deserialize = "State"), default)]
+    #[serde(rename = "State", default)]
     pub state: String,
-    #[serde(rename(deserialize = "Status"), default)]
+    #[serde(rename = "Status", default)]
     pub status: String,
-    #[serde(rename(deserialize = "Ports"), default)]
+    #[serde(rename = "Ports", default)]
     pub ports: Vec<Port>,
-    #[serde(rename(deserialize = "Labels"), default)]
+    #[serde(rename = "Labels", default)]
     pub labels: HashMap<String, String>,
-    #[serde(rename(deserialize = "SizeRw"), default)]
+    #[serde(rename = "SizeRw", default)]
     pub size_rw: Option<u64>,
-    #[serde(rename(deserialize = "SizeRootFs"), default)]
+    #[serde(rename = "SizeRootFs", default)]
     pub size_root_fs: Option<u64>,
-    #[serde(rename(deserialize = "HostConfig"), default)]
+    #[serde(rename = "HostConfig", default)]
     pub host_config: HostConfig,
-    #[serde(rename(deserialize = "NetworkSettings"), default)]
+    #[serde(rename = "NetworkSettings", default)]
     pub network_settings: NetworkSettings,
-    #[serde(rename(deserialize = "Mounts"), default)]
+    #[serde(rename = "Mounts", default)]
     pub mounts: Vec<Mount>,
 }
 
@@ -115,3 +115,22 @@ impl Clone for Container {
         }
     }
 }
+
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+pub struct GenericDevice {
+    #[serde(rename = "PathOnHost", default)]
+    pub host_path: String,
+    #[serde(rename = "PathInContainer", default)]
+    pub container_path: String,
+    #[serde(rename = "CgroupPermissions", default)]
+    pub options: HashMap<String, String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+pub struct WarningsResponse {
+    #[serde(rename = "Warnings", default)]
+    pub warnings: Vec<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct EmptyMap {}
