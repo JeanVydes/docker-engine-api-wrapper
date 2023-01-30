@@ -30,20 +30,18 @@ pub fn request(client: &HyperClient<UnixConnector>, socket: String, url: String,
             .into();
 
         let mut response = client.request(req).await?; 
+
+        let chunks = vec![];
         while let Some(next) = response.data().await {
             let chunk = next?;
-
-            let simple = SimpleResponse {
-                status: response.status().as_u16(),
-                body: chunk,
-            };
-
-            return Ok(simple);
+            chunks.extend_from_slice(&chunk);
         }
 
-        Ok(SimpleResponse {
-            status: response.status().as_u16().into(),
-            body: Bytes::new(),
-        })
+        let simple = SimpleResponse {
+            status: response.status().as_u16(),
+            body: chunks,
+        };
+
+        Ok(simple);
     })
 }
